@@ -40,7 +40,15 @@ user = client.user
 user.login
 
 
+client.connection_options[:ssl] = { :verify => false }
 
+Octokit.api_endpoint = 'http://api.github.dev'
+Octokit.web_endpoint = 'http://github.dev'
+
+Octokit.configure do |c|
+  c.api_endpoint = 'http://api.github.dev'
+  c.web_endpoint = 'http://github.dev'
+end
 
 client.api_endpoint
 
