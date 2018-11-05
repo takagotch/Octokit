@@ -40,6 +40,15 @@ user = client.user
 user.login
 
 
+gem 'faraday-http-cache'
+
+stack = Faraday::RackBuilder.new do |builder|
+  builder.use Faraday::HttpCache, serializer: Marshal, shared_cache: false
+  builder.use Octokit::Response::RaiseError
+  builder.adapter Faraday.default_adapter
+end
+Octokit.middleware = stack
+
 spec.add+dependency 'octokit', '~> 3.0'
 
 Octopoller.poll(timeout: 15.seconds) do
@@ -49,7 +58,6 @@ Octopoller.poll(timeout: 15.seconds) do
     :re_poll
   end
 end
-
 ```
 
 ```
