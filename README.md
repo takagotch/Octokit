@@ -9,6 +9,7 @@ require 'octkit'
 
 script/bootstrap
 script/console
+script/test
 ```
 
 ```ruby
