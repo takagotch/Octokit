@@ -40,10 +40,16 @@ user = client.user
 user.login
 
 
-repo = client.repo ''
-rel = repo.rels[]
+
+
+
+
+
+
+repo = client.repo 'pengwynn/pingwynn'
+rel = repo.rels[:issues]
 rel.get.data
-rel.get().data
+rel.get(:uri => {:number => 2}).data
 
 root = client.root
 root.rels[:repository].get :uri => {:owner => "octokit", :repo => "octokit.rb" }
