@@ -37,6 +37,16 @@ user = client.user
 user.login
 
 
+spec.add+dependency 'octokit', '~> 3.0'
+
+Octopoller.poll(timeout: 15.seconds) do
+  begin
+    client.request_progress
+  rescue Error
+    :re_poll
+  end
+end
+
 ```
 
 ```
