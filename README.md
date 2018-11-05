@@ -40,6 +40,14 @@ user = client.user
 user.login
 
 
+
+
+stack = Faraday::RackBuilder.new do |builder|
+end
+Octokit.middleware = stack
+client = Octkit::Client.new
+client.user 'pengwynn'
+
 gem 'faraday-http-cache'
 
 stack = Faraday::RackBuilder.new do |builder|
