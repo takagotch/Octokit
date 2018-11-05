@@ -40,9 +40,26 @@ user = client.user
 user.login
 
 
+repo = client.repo ''
+rel = repo.rels[]
+rel.get.data
+rel.get().data
 
+root = client.root
+root.rels[:repository].get :uri => {:owner => "octokit", :repo => "octokit.rb" }
+root.rels[:user_repositories].get :uri => { :user => "octokit" },
+                :query => { :type => "owner" }
+
+Octokit.default_media_type = "application/vnd.github.beta+json"
+client.emails(:accept => "application/vnd.github.beta+json")
 
 stack = Faraday::RackBuilder.new do |builder|
+  builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError]
+  builder.use Octokit::Middleware::FollowRedirects
+  builder.use Octokit::Response::RaiseError
+  builder.use Octokit::Response::FeedParser
+  builder.response :logger
+  builder.adapter Faraday.default_adapter
 end
 Octokit.middleware = stack
 client = Octkit::Client.new
