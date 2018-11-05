@@ -40,6 +40,57 @@ user = client.user
 user.login
 
 
+
+
+
+
+
+
+
+
+client = Octokit::Client.new \
+  :client_id => "<your 20 char id>"
+  :client_secret => "<your 40 char secret>"
+user = client.user 'defunkt'
+
+Octokit::Client.new(access_token: "<your 40 char token>", per_page: 100)
+
+issues = client.issues 'rails/rails'
+issues.concat client.last_response.rels[:next].get.data
+
+client.auto_paginate = true
+issues = client.issues 'rails/rails'
+issues.length
+
+Octokit.configure do |c|
+  c.auto_paginate = true
+end
+
+Octokit.configure do |c|
+  c.api_endpoint = "https://<hostname>/api/v3/"
+end
+client = Octokit::Client.new(:access_token => "<your 40 char token>")
+
+admin_client = Octokit::EnterpriseAdminClient.new(
+  :access_token => "<your 40 char token>",
+  :api_endpoint => "https://<hostname>/api/v3/"
+)
+Octokit.configure do |c|
+  c.api_endpoint = "https://<hostname>/api/v3/"
+  c.access_token = "<your 40 char token>"
+end
+admin_client = Octokit.enterprise_admin_client.new
+
+management_console_client = Octokit::EnterpriseManagementConsoleClient.new(
+  :management_console_password => "secret",
+  :management_console_endpoint = "https://hostname:8633"
+)
+Octokit.configure do |c|
+  c.management_console_endpoint = "https://hostname:85633"
+  c.management_console_passowrd = "secret"
+end
+management_console_client = Octokit.enterprise_management_console_client.new
+
 client.connection_options[:ssl] = { :verify => false }
 
 Octokit.api_endpoint = 'http://api.github.dev'
