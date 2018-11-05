@@ -31,22 +31,36 @@ puts user.fields
 puts user[:company]
 user.rels[:gists].href
 
-user = client.user ''
+user = client.user 'andrewpthorp'
 response = client.last_response
-etag = response.headers[]
+etag = response.headers[:etag]
 
-client = Octkit::Client.new(:login => '', :passowrd => '')
+client = Octkit::Client.new(:access_token => "<your 40 char token>")
 user = client.user
 user.login
 
+client = Octokit::Client.new(:access_token => " <your 40 char token>")
+user = client.user
+user.login
 
+client = Octokit::Client.new(:login => 'defunkt', :password => 'XXXXXXX')
+client.create_authorization(:scopes => ["user"], :note => "Name of token")
 
+client = Octokit::Client.new \
+  :login => 'defunct',
+  :password => 'XXXXXXXX'
+user = client.user("defunkt", :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
 
+machine api.github.com
+  login degunkt
+  password XXXXXXXXXXX
 
+client = Octokit::Client.new(:netrc => true)
+client.login
 
-
-
-
+machine api.github.com
+  login defunkt
+  password <your 40 char token>
 
 client = Octokit::Client.new \
   :client_id => "<your 20 char id>"
