@@ -7,6 +7,8 @@ gem install octokit
 gem "octokit", "~> 4.0"
 require 'octkit'
 
+script/bootstrap
+script/console
 ```
 
 ```ruby
