@@ -42,9 +42,12 @@ user.login
 
 
 
+client.api_endpoint
 
-
-
+user = client.user 'technoweenie'
+user.rels[:repos].href
+repos = user.rels[:repos].get.data
+repos.last.name
 
 repo = client.repo 'pengwynn/pingwynn'
 rel = repo.rels[:issues]
